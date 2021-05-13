@@ -1,9 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addPlayer.AddPlayerActivity">
+    tools:context=".ui.addPlayer.AddPlayerActivity"
+    >
+
+    <ImageView
+        android:id="@+id/playerIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.ImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/soloMmr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewDescription"
+        android:text="@string/solo_mmr_et"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerIcon"
+        />
+
+    <TextView
+        android:id="@+id/tvSoloMmr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewData"
+        android:text="@string/data_et"
+        app:layout_constraintStart_toEndOf="@+id/soloMmr"
+        app:layout_constraintTop_toBottomOf="@+id/playerIcon"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewDescription"
+        android:text="@string/party_mmr_et"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/soloMmr"
+        />
+
+    <TextView
+        android:id="@+id/tvPartyMmr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewData"
+        android:text="@string/data_et"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvSoloMmr"
+        />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewDescription"
+        android:text="@string/estimated_mmr_et"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        />
+
+    <TextView
+        android:id="@+id/tvEstimatedMmr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.TextViewData"
+        android:text="@string/data_et"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/tvPartyMmr"
+        />
+
+    <EditText
+        android:id="@+id/etPlayerId"
+        style="@style/AppTheme.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playerIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btFetchPlayer"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:text="@string/search_bt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerIcon"
+        app:layout_constraintTop_toBottomOf="@+id/etPlayerId"
+        />
+    <Button
+        android:id="@+id/btSubmit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:text="@string/bt_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerIcon"
+        app:layout_constraintTop_toBottomOf="@+id/btFetchPlayer"
+        />
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:text="@string/bt_delete_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerIcon"
+        app:layout_constraintTop_toBottomOf="@+id/btSubmit"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

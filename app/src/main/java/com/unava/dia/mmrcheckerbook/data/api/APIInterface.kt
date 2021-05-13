@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface APIInterface {
     @GET("players/{accountId}")
-    fun getPlayerInfo(@Path("accountId") accountId: String): Response<AccInformation>
+    suspend fun getPlayerInfo(@Path("accountId") accountId: String): Response<AccInformation>
 }

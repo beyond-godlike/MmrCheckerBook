@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MmrCheckerBook</string>
+    <string name="tv_avatar">Avatar</string>
+    <string name="tv_estimated">Estim</string>
+    <string name="tv_solo">Solo</string>
+    <string name="tv_party">Party</string>
+    <string name="tv_rank">Rank</string>
+    <string name="bt_update_all">Update all</string>
+
+    <string name="solo_mmr_et">Solo mmr</string>
+    <string name="party_mmr_et">Party mmr</string>
+    <string name="estimated_mmr_et">Estimated mmr</string>
+    <string name="data_et">-</string>
+    <string name="search_bt">Search player</string>
+    <string name="bt_submit">Submit</string>
+    <string name="bt_delete_player">Delete player</string>
 </resources>
