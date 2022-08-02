@@ -2,6 +2,7 @@ package com.unava.dia.mmrcheckerbook.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import com.unava.dia.mmrcheckerbook.data.AccInformation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MainViewModel @Inject constructor(private val model: MainModel) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val model: MainModel
+    ) : ViewModel() {
     val requestError: MutableLiveData<String> = MutableLiveData()
     val updatingStatus: MutableLiveData<String> = MutableLiveData()
     var accInfo: MutableLiveData<AccInformation> = MutableLiveData()

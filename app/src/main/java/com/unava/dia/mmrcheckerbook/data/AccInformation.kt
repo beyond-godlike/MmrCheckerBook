@@ -2,9 +2,11 @@ package com.unava.dia.mmrcheckerbook.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class AccInformation(
     @JsonProperty("tracked_until")
     var tracked_until: String? = null,

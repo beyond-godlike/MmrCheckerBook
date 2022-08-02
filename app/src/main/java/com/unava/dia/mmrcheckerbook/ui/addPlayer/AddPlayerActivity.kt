@@ -1,33 +1,32 @@
 package com.unava.dia.mmrcheckerbook.ui.addPlayer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.unava.dia.mmrcheckerbook.R
 import com.unava.dia.mmrcheckerbook.utils.AppConstants.Companion.PLAYER_ID
-import com.unava.dia.mmrcheckerbook.utils.PicassoUtil
-import dagger.android.AndroidInjection
+import com.unava.dia.mmrcheckerbook.utils.obtainViewModel
+import com.unava.dia.mmrcheckerbook.utils.setImage
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_player.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.*
 
+
+@AndroidEntryPoint
 class AddPlayerActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: AddPlayerViewModel
+    private val viewModel: AddPlayerViewModel by lazy {
+        obtainViewModel(AddPlayerViewModel::class.java,)
+    }
 
     private var playerId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_player)
-        AndroidInjection.inject(this)
         playerId = intent.getIntExtra(PLAYER_ID, 0)
-        this.bindViewModel()
+        this.observeViewModel()
 
-        //Toast.makeText(this, playerId.toString(), Toast.LENGTH_LONG).show()
         if (playerId != 0) {
             viewModel.restorePlayerFromDatabase(playerId!!)
         }
@@ -38,8 +37,7 @@ class AddPlayerActivity : AppCompatActivity() {
         btSubmit.setOnClickListener {
             if (playerId != 0) {
                 viewModel.addPlayer()
-            }
-            else {
+            } else {
                 viewModel.updatePlayer(playerId!!)
             }
             setResult(RESULT_OK, intent)
@@ -52,23 +50,21 @@ class AddPlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindViewModel() {
-        this.viewModel = ViewModelProvider(this, viewModelFactory).get(AddPlayerViewModel::class.java)
-        this.observeViewModel()
-    }
 
     private fun observeViewModel() {
-        this.viewModel.requestError.observe(this, Observer { error ->
+        this.viewModel.requestError.observe(this) { error ->
             Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-        })
+        }
 
-        this.viewModel.accInfo.observe(this, Observer {
-            playerId = it.id
-            PicassoUtil.setPlayerIcon(playerIcon, it?.profile?.avatarfull.toString())
-            tvEstimatedMmr.text = it?.mmr_estimate?.estimate.toString()
-            tvSoloMmr.text = it?.solo_competitive_rank
-            tvPartyMmr.text = it?.competitive_rank
-            etPlayerId.setText(it?.profile?.account_id?.toString())
-        })
+        this.viewModel.accInfo.observe(this) { iter->
+            playerId = iter.id
+
+
+            playerIcon?.let { setImage(it, iter?.profile?.avatarfull!!) }
+            tvEstimatedMmr.text = iter?.mmr_estimate?.estimate.toString()
+            tvSoloMmr.text = iter?.solo_competitive_rank
+            tvPartyMmr.text = iter?.competitive_rank
+            etPlayerId.setText(iter?.profile?.account_id?.toString())
+        }
     }
 }

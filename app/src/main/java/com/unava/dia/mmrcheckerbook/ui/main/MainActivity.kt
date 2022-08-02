@@ -2,37 +2,37 @@ package com.unava.dia.mmrcheckerbook.ui.main
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.unava.dia.mmrcheckerbook.R
 import com.unava.dia.mmrcheckerbook.data.AccInformation
 import com.unava.dia.mmrcheckerbook.ui.addPlayer.AddPlayerActivity
 import com.unava.dia.mmrcheckerbook.utils.AppConstants.Companion.ACTIVITY_REQUEST_CODE
 import com.unava.dia.mmrcheckerbook.utils.AppConstants.Companion.PLAYER_ID
 import com.unava.dia.mmrcheckerbook.utils.RecyclerViewClickListener
-import dagger.android.AndroidInjection
+import com.unava.dia.mmrcheckerbook.utils.obtainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy {
+        obtainViewModel(MainViewModel::class.java)
+    }
 
     private var adapter: MainListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AndroidInjection.inject(this)
         setupRecyclerView()
-        this.bindViewModel()
+        this.observeViewModel()
 
         btNew.setOnClickListener {
             val intent = Intent(this, AddPlayerActivity::class.java)
@@ -40,22 +40,17 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
         }
     }
 
-    private fun bindViewModel() {
-        this.viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        this.observeViewModel()
-    }
-
     // LiveData takes in an observer and notifies it about data changes only when it is in STARTED or RESUMED state.
     private fun observeViewModel() {
-        viewModel.getPlayersList()?.observe(this, Observer {
+        viewModel.getPlayersList()?.observe(this) {
             updatePlayersList(it)
-        })
-        viewModel.updatingStatus.observe(this, Observer {
+        }
+        viewModel.updatingStatus.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-        })
-        this.viewModel.requestError.observe(this, Observer { error ->
+        }
+        this.viewModel.requestError.observe(this) { error ->
             Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-        })
+        }
     }
 
     private fun setupRecyclerView() {
@@ -72,6 +67,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -84,14 +80,14 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
         // here we create an instance & use more memory(
         val player = adapter!!.getItem(position)
 
-        if(view?.id == R.id.ivPlayerIcon) {
+        if (view?.id == R.id.ivPlayerIcon) {
             if (player.id != null) {
                 viewModel.updatePlayer(player.id!!)
                 // LiveData takes in an observer and notifies it about data changes only when it is in STARTED or RESUMED state
                 this.recreate()
             }
         }
-        if(view?.id == R.id.btEdit) {
+        if (view?.id == R.id.btEdit) {
             val intent = Intent(this, AddPlayerActivity::class.java)
             intent.putExtra(PLAYER_ID, player.id)
             startActivityForResult(intent, ACTIVITY_REQUEST_CODE)
