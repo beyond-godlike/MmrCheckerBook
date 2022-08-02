@@ -1,4 +1,4 @@
-package com.unava.dia.mmrcheckerbook.framework.useCases
+package com.unava.dia.mmrcheckerbook.di
 
 import android.content.Context
 import com.unava.dia.mmrcheckerbook.data.api.APIInterface
@@ -8,9 +8,12 @@ import com.unava.dia.mmrcheckerbook.domain.useCases.FetchPlayerUseCase
 import com.unava.dia.mmrcheckerbook.domain.useCases.RoomUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class UseCasesModule {
 
     @Singleton

@@ -3,10 +3,12 @@ package com.unava.dia.mmrcheckerbook.ui.addPlayer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.unava.dia.mmrcheckerbook.data.AccInformation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+@HiltViewModel
 class AddPlayerViewModel @Inject constructor(private val model: AddPlayerModel) : ViewModel() {
     val requestError: MutableLiveData<String> = MutableLiveData()
     var accInfo: MutableLiveData<AccInformation> = MutableLiveData()
@@ -36,26 +38,25 @@ class AddPlayerViewModel @Inject constructor(private val model: AddPlayerModel) 
     fun addPlayer() {
         if (accInfo.value != null) {
             // проверить есть ли плеер с таким acc_id если есть - update
-            if(isPlayerInDatabase(accInfo.value?.profile?.account_id!!)) {
+            if (isPlayerInDatabase(accInfo.value?.profile?.account_id!!)) {
                 //requestError.value = "updating"
-            }
-            else model.insertPlayer(accInfo.value!!)
+            } else model.insertPlayer(accInfo.value!!)
         }
     }
 
 
-    private fun isPlayerInDatabase(accId: Int) : Boolean {
+    private fun isPlayerInDatabase(accId: Int): Boolean {
         val entitiesList = model.getPlayersAsync()
         if (entitiesList != null) {
             for (entity in entitiesList) {
                 if (entity.profile!!.account_id == accId) {
                     // update entity
-					//change 
+                    //change
                     //model.updatePlayer(entity)
-					// to 
-					accInfo.value?.id = entity.id
+                    // to
+                    accInfo.value?.id = entity.id
                     requestError.value = "updating " + accInfo.value?.id
-					model.updatePlayer(accInfo.value!!)
+                    model.updatePlayer(accInfo.value!!)
                     return true
                 }
             }
@@ -64,7 +65,7 @@ class AddPlayerViewModel @Inject constructor(private val model: AddPlayerModel) 
     }
 
     fun updatePlayer(id: Int) {
-		accInfo.value!!.id = id
+        accInfo.value!!.id = id
         model.updatePlayer(accInfo.value!!)
     }
 

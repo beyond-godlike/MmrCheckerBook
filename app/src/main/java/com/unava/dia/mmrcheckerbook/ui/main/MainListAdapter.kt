@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.unava.dia.mmrcheckerbook.R
 import com.unava.dia.mmrcheckerbook.data.AccInformation
-import com.unava.dia.mmrcheckerbook.utils.PicassoUtil
 import com.unava.dia.mmrcheckerbook.utils.PlayerDiffUtil
 import com.unava.dia.mmrcheckerbook.utils.RecyclerViewClickListener
+import com.unava.dia.mmrcheckerbook.utils.setImage
 
 class MainListAdapter (private val players: MutableList<AccInformation>, private val listener: RecyclerViewClickListener) :
     RecyclerView.Adapter<MainListAdapter.CustomViewHolder>() {
@@ -26,7 +26,10 @@ class MainListAdapter (private val players: MutableList<AccInformation>, private
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val player = getItem(position)
 
-        PicassoUtil.setPlayerIcon(holder.playerIcon, player.profile?.avatar.toString())
+        val url = player.profile?.avatarmedium.toString()
+        setImage(holder.playerIcon, url)
+
+        holder.name.text = nullToString(player.profile?.personaname)
         holder.estimated.text = nullToString(player.mmr_estimate?.estimate)
         holder.solo.text = nullToString(player.solo_competitive_rank)
         holder.party.text = nullToString(player.competitive_rank)
@@ -61,6 +64,7 @@ class MainListAdapter (private val players: MutableList<AccInformation>, private
     {
         private val mListener = listener
         var playerIcon: ImageButton = itemView.findViewById(R.id.ivPlayerIcon)
+        var name: TextView = itemView.findViewById(R.id.tvName)
         var estimated: TextView = itemView.findViewById(R.id.tvEstimated)
         var solo: TextView = itemView.findViewById(R.id.tvSolo)
         var party: TextView = itemView.findViewById(R.id.tvParty)

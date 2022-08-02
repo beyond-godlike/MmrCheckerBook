@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.TextView">
-        <item name="android:padding">5dp</item>
-        <item name="android:width">60dp</item>
+    <style name="AppTheme.TextViewTop">
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="paddingEnd">6dp</item>
+        <item name="paddingStart">6dp</item>
+        <item name="android:width">80dp</item>
         <item name="android:fontFamily">@font/latoregular</item>
         <item name="android:textSize">14sp</item>
         <item name="android:typeface">normal</item>
@@ -18,8 +21,14 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="AppTheme.TextView" parent="AppTheme.TextViewTop">
+        <item name="android:height">80dp</item>
+    </style>
+
     <style name="AppTheme.CardButton">
         <item name="android:background">@drawable/ic_action_name</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">6dp</item>
         <item name="android:minWidth">@android:dimen/app_icon_size</item>
     </style>
 
@@ -29,43 +38,45 @@
     </style>
 
     <style name="AppTheme.ImageButton">
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:minWidth">40dp</item>
-        <item name="android:minHeight">40dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:minWidth">80dp</item>
+        <item name="android:minHeight">80dp</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:scaleType">center</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="AppTheme.RecyclerView">
-        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:layout_marginStart">@dimen/spacing_default</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_default</item>
     </style>
 
     <style name="AppTheme.CardView">
     </style>
 
     <style name="AppTheme.ImageView">
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_default</item>
+        <item name="android:layout_marginTop">@dimen/spacing_default</item>
         <item name="android:minHeight">150dp</item>
         <item name="android:minWidth">150dp</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="AppTheme.TextViewDescription">
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
-        <item name="android:minWidth">100dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_default</item>
+        <item name="android:layout_marginTop">@dimen/spacing_default</item>
+        <item name="android:minWidth">120dp</item>
     </style>
 
     <style name="AppTheme.TextViewData">
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_default</item>
+        <item name="android:layout_marginTop">@dimen/spacing_default</item>
     </style>
 
     <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
-        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_default</item>
+        <item name="android:layout_marginTop">@dimen/spacing_default</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:layout_marginRight">@dimen/spacing_default</item>
         <item name="android:ems">10</item>
         <item name="android:inputType">number</item>
         <item name="android:textSize">18sp</item>
@@ -76,15 +87,11 @@
 
 
     <style name="AppTheme.Button">
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginRight">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
-        <item name="android:minWidth">64dp</item>
-        <item name="android:minHeight">36dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing_default</item>
+        <item name="android:paddingLeft">@dimen/spacing_medium</item>
+        <item name="android:paddingRight">@dimen/spacing_medium</item>
+        <item name="android:paddingTop">@dimen/spacing_medium</item>
+        <item name="android:paddingBottom">@dimen/spacing_medium</item>
         <item name="android:background">@drawable/bt</item>
         <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>

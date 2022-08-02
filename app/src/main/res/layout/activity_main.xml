@@ -13,40 +13,48 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_default"
         android:layout_marginEnd="@dimen/spacing_default"
+        android:layout_marginTop="@dimen/spacing_default"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            style="@style/AppTheme.TextView"
+            style="@style/AppTheme.TextViewTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_avatar"
             />
 
         <TextView
-            style="@style/AppTheme.TextView"
+            style="@style/AppTheme.TextViewTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_name"
+            />
+
+        <TextView
+            style="@style/AppTheme.TextViewTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_estimated"
             />
 
         <TextView
-            style="@style/AppTheme.TextView"
+            style="@style/AppTheme.TextViewTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_solo"
             />
 
         <TextView
-            style="@style/AppTheme.TextView"
+            style="@style/AppTheme.TextViewTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_party"
             />
 
         <TextView
-            style="@style/AppTheme.TextView"
+            style="@style/AppTheme.TextViewTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_rank"
@@ -64,20 +72,17 @@
             style="@style/AppTheme.AddButton"
             />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlayers"
+        style="@style/AppTheme.RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        android:layout_marginStart="@dimen/spacing_default"
-        android:layout_marginEnd="@dimen/spacing_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topPanel"
-        style="@style/AppTheme.RecyclerView"
-        />
+        app:layout_constraintTop_toBottomOf="@id/topPanel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,36 +1,32 @@
 package com.unava.dia.mmrcheckerbook
 
-import android.app.Activity
 import androidx.multidex.MultiDexApplication
-import com.unava.dia.mmrcheckerbook.framework.AppComponent
-import com.unava.dia.mmrcheckerbook.framework.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.security.ProviderInstaller
+import dagger.hilt.android.HiltAndroidApp
+import java.security.KeyManagementException
+import java.security.NoSuchAlgorithmException
+import javax.net.ssl.SSLContext
 
-class MmrCheckerBookApp : MultiDexApplication(), HasActivityInjector {
-    @Inject
-    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
-
-    var appComponent: AppComponent? = null
-        private set
-
+@HiltAndroidApp
+class MmrCheckerBookApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-        this.initDagger()
-        // TODO init db?
-    }
-
-    private fun initDagger() {
-        this.appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
-        this.appComponent!!
-            .inject(this)
-    }
-
-    override fun activityInjector(): AndroidInjector<Activity>? {
-        return dispatchingActivityInjector
+        try {
+            // Google Play will install latest OpenSSL
+            ProviderInstaller.installIfNeeded(applicationContext)
+            val sslContext = SSLContext.getInstance("TLSv1.2")
+            sslContext.init(null, null, null)
+            sslContext.createSSLEngine()
+        } catch (e: GooglePlayServicesRepairableException) {
+            e.printStackTrace()
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        } catch (e: KeyManagementException) {
+            e.printStackTrace()
+        }
     }
 }
